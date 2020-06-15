@@ -1,6 +1,6 @@
 package org.liying.repository;
+import org.liying.jdbc.ConsumerJDBCDao;
 import org.liying.model.Consumer;
-import org.liying.repository.ConsumerDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,11 +10,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ConsumerDaoTest {
-    private ConsumerDao consumerJDBCDao;
+    private ConsumerJDBCDao consumerJDBCDao;
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Before
     public void setUp(){
-        consumerJDBCDao = new ConsumerDao();
+        consumerJDBCDao = new ConsumerJDBCDao();
     }
     @After
     public void tearDown(){

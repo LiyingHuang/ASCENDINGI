@@ -3,8 +3,8 @@ package org.liying.repository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.liying.jdbc.OrderJDBCDao;
 import org.liying.model.Order;
-import org.liying.model.ShoppingPlatform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,21 +13,21 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class OrderDaoTest {
-    private OrderDao oderJDBCDao;
+    private OrderJDBCDao orderJDBCDao;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Before
     public void setUp(){
-        oderJDBCDao = new OrderDao();
+        orderJDBCDao = new OrderJDBCDao();
     }
     @After
     public void tearDown(){
-        oderJDBCDao = null;
+        orderJDBCDao = null;
     }
     @Test
     public void getShoppingPlatformTest(){
         logger.debug("Start unit test for orderJDBCDao ...");
-        List<Order> ordersList = oderJDBCDao.getOrders();
+        List<Order> ordersList = orderJDBCDao.getOrders();
         assertEquals(0,ordersList.size());
     }
 }

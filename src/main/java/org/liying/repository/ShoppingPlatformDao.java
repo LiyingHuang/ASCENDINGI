@@ -3,14 +3,14 @@ package org.liying.repository;
  import org.liying.model.ShoppingPlatform;
  import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
-
+// Import the package
  import java.sql.*;
  import java.util.ArrayList;
  import java.util.List;
 
 public class ShoppingPlatformDao {
 
-    // dealer1 not dealer (depends which db you migrate your table)
+    // dealer1 not dealer (depends which db you migrate your table to)
     static final String DBURL = "jdbc:postgresql://localhost:5431/dealer2";
     static final String USER = "admin";
     static final String PASS = "password";
@@ -25,6 +25,9 @@ public class ShoppingPlatformDao {
         ResultSet rs = null;
         try {
             //STEP 2: Open a connection
+//            Requires using the DriverManager.getConnection() method
+//            to create a Connection object,
+//            which represents a physical connection with a database server.
             logger.debug("open connection...");
 
             conn = DriverManager.getConnection(DBURL, USER, PASS);

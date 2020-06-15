@@ -1,4 +1,5 @@
 package org.liying.repository;
+import org.liying.jdbc.ShoppingPlatformJDBCDao;
 import org.liying.model.ShoppingPlatform;
 
 import org.junit.After;
@@ -10,12 +11,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ShoppingPlatformDaoTest {
-    private ShoppingPlatformDao shoppingPlatformJDBCDao;
+    private ShoppingPlatformJDBCDao shoppingPlatformJDBCDao;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Before
     public void setUp(){
-        shoppingPlatformJDBCDao = new ShoppingPlatformDao();
+        shoppingPlatformJDBCDao = new ShoppingPlatformJDBCDao();
     }
     @After
     public void tearDown(){
