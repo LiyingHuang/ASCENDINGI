@@ -11,6 +11,7 @@ public interface ShoppingPlatformDao{
     // getShoppingPlatforms: MethodName
 
     // create retrieve update delete
+    //CRUD
     ShoppingPlatform save(ShoppingPlatform shoppingPlatform);
     List<ShoppingPlatform> getShoppingPlatforms();  //Lazy, only sp, not the customer
     ShoppingPlatform getBy(Long id);

@@ -1,4 +1,5 @@
 package org.liying.repository;
+import org.liying.jdbc.ShoppingPlatformJDBC;
 import org.liying.jdbc.ShoppingPlatformJDBCDao;
 import org.liying.model.ShoppingPlatform;
 
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 
-public class ShoppingPlatformDaoTest {
+public class ShoppingPlatformJDBCDaoTest {
     private ShoppingPlatformJDBCDao shoppingPlatformJDBCDao;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -25,7 +26,7 @@ public class ShoppingPlatformDaoTest {
     @Test
     public void getShoppingPlatformTest(){
         logger.debug("Start unit test for shoppingPlatformJDBCDao ...");
-        List<ShoppingPlatform> shoppingPlatformList = shoppingPlatformJDBCDao.getShoppingPlatforms();
+        List<ShoppingPlatformJDBC> shoppingPlatformList = shoppingPlatformJDBCDao.getShoppingPlatforms();
         assertEquals(4,shoppingPlatformList.size()) ;
         // getShoppingPlatform() return List
         //assertEquals(shoppingPlatformDao.getShoppingPlatform().size());
