@@ -1,11 +1,26 @@
 package org.liying.model;
 
-public class Order {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "orders")
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "total_amount")
     private Long totalAmount;
+    @Column(name = "payment_method")
     private String paymentMethod;
-    private Long consumerId ;
+//    @Column(name = "consumer_id")
+//    private Long consumerId ;
+
+    // order has fk, is owning side
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "consumer_id")
+    private Consumer consumer;
 
     public long getId() {
         return id;
@@ -31,11 +46,11 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public long getConsumerId() {
-        return consumerId;
-    }
-
-    public void setConsumerId(long consumerId) {
-        this.consumerId = consumerId;
-    }
+//    public long getConsumerId() {
+//        return consumerId;
+//    }
+//
+//    public void setConsumerId(long consumerId) {
+//        this.consumerId = consumerId;
+//    }
 }

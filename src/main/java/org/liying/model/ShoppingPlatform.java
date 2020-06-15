@@ -1,12 +1,73 @@
+//package org.liying.model;
+//
+//public class ShoppingPlatform {
+//    public ShoppingPlatform(){}
+//
+//    private long id;
+//    private String name;
+//    private String website;
+//    private String shippingMethod;
+//
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getWebsite() {
+//        return website;
+//    }
+//
+//    public void setWebsite(String website) {
+//        this.website = website;
+//    }
+//
+//    public String getShippingMethod() {
+//        return shippingMethod;
+//    }
+//
+//    public void setShippingMethod(String shippingMethod) {
+//        this.shippingMethod = shippingMethod;
+//    }
+//}
 package org.liying.model;
 
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "shopping_platforms")
 public class ShoppingPlatform {
     public ShoppingPlatform(){}
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "website")
     private String website;
+    @Column(name = "shipping_method")
     private String shippingMethod;
+
+    @OneToMany(mappedBy = "shoppingPlatform", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private Set<Consumer> consumers;
+
+    public Set<Consumer> getConsumers(){
+        return this.consumers = consumers;
+    }
 
     public long getId() {
         return id;
@@ -39,4 +100,5 @@ public class ShoppingPlatform {
     public void setShippingMethod(String shippingMethod) {
         this.shippingMethod = shippingMethod;
     }
+
 }
