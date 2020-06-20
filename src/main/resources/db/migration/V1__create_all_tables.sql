@@ -5,6 +5,7 @@ CREATE TABLE shopping_platforms (
 	shipping_method      VARCHAR(150)
 );
 ALTER TABLE shopping_platforms ADD CONSTRAINT shopping_platform_pk PRIMARY KEY (id);
+
 CREATE TABLE consumers (
 	id  					BIGSERIAL NOT NULL,
 	name 					VARCHAR(50) NOT NULL UNIQUE,
@@ -13,6 +14,7 @@ CREATE TABLE consumers (
 	shopping_platform_id    	BIGINT
 );
 ALTER TABLE consumers ADD CONSTRAINT consumer_pk PRIMARY KEY (id);
+
 CREATE TABLE orders (
 	id                 		BIGSERIAL NOT NULL,
 	total_amount			BIGINT,
@@ -20,9 +22,11 @@ CREATE TABLE orders (
 	consumer_id  			BIGINT
 );
 ALTER TABLE orders ADD CONSTRAINT order_pk PRIMARY KEY (id);
+
 ALTER TABLE orders
     ADD CONSTRAINT	order_consumer_fk FOREIGN KEY ( consumer_id )
         REFERENCES consumers ( id );
+
 ALTER TABLE consumers
     ADD CONSTRAINT consumer_shopping_platform_fk FOREIGN KEY ( shopping_platform_id )
         REFERENCES shopping_platforms ( id );
