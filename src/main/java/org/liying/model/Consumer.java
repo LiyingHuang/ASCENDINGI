@@ -29,6 +29,9 @@ public class Consumer {
 
     public  Consumer(){}
 
+    public void setOrder(Set<Order> orders){
+        this.orders = orders;
+    }
     public Set<Order> getOrders() {
         return this.orders = orders;
     }

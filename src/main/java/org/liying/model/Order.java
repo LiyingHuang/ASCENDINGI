@@ -22,28 +22,30 @@ public class Order {
     @JoinColumn(name = "consumer_id")
     private Consumer consumer;
 
+    public void setConsumer(Consumer consumer) {
+        this.consumer = consumer;
+    }
+
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public long getTotalAmount() {
         return totalAmount;
     }
-
     public void setTotalAmount(long totalAmount) {
         this.totalAmount = totalAmount;
     }
-
     public String getPaymentMethod() {
         return paymentMethod;
     }
-
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+    public Consumer getConsumer(){
+        return this.consumer = consumer;
     }
 
 //    public long getConsumerId() {
