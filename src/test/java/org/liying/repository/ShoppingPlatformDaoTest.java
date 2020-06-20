@@ -3,21 +3,30 @@ package org.liying.repository;
 import org.junit.Assert;
 import org.junit.*;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.liying.ApplicationBootstrap;
 import org.liying.model.Consumer;
 import org.liying.model.ShoppingPlatform;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes= ApplicationBootstrap.class)
 // 3rd include OneToMany
+// 4th include SPRING @Autowired
 public class ShoppingPlatformDaoTest {
-
+    @Autowired
     private ShoppingPlatformDao shoppingPlatformDao;
+    @Autowired
     private ConsumerDao consumerDao;
+
     private ShoppingPlatform sp1;
     private Consumer c1;
     private Consumer c2;
-
     @Before
     public void setUp(){
         // save record in One side
@@ -25,17 +34,16 @@ public class ShoppingPlatformDaoTest {
         sp1.setName("sp1");
         sp1.setShippingMethod("sp1_fedex");
         sp1.setWebsite("www.sp1.com");
-        shoppingPlatformDao = new ShoppingPlatformDaoImpl();
+//        shoppingPlatformDao = new ShoppingPlatformDaoImpl();
         sp1 = shoppingPlatformDao.save(sp1);
 
+//        consumerDao = new ConsumerDaoImpl();
         // save record in Many side
         c1 = new Consumer();
         c1.setAddress("c1_ADDRESS");
         c1.setName("c1_name");
         c1.setPhone("c1_phone12345");
-           //  use sp_id as the FK of the class sp
         c1.setShoppingPlatform(sp1);
-        consumerDao = new ConsumerDaoImpl();
         consumerDao.save(c1);
 
         c2 = new Consumer();

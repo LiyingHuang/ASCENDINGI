@@ -1,6 +1,6 @@
 package org.liying.repository;
-
-import com.sun.tools.corba.se.idl.constExpr.Not;
+import org.junit.runner.RunWith;
+import org.liying.ApplicationBootstrap;
 import org.liying.model.Consumer;
 import org.liying.model.Order;
 import org.liying.model.ShoppingPlatform;
@@ -12,17 +12,26 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes= ApplicationBootstrap.class)
 
 public class ConsumerDaoTest {
+    @Autowired
+    private ConsumerDao consumerDao;
+    @Autowired
+    private OrderDao orderDao;
+
     private Consumer c1;
     private Order od1;
     private Order od2;
-    private ConsumerDao consumerDao;
-    private OrderDao orderDao;
 
     @Before
     public  void init(){
@@ -31,21 +40,24 @@ public class ConsumerDaoTest {
         c1.setName("C1");
         c1.setPhone("110");
         c1.setAddress("111 frow");
-        consumerDao = new ConsumerDaoImpl();
+//         consumerDao = new ConsumerDaoImpl();
         c1 = consumerDao.save(c1);
 
         // save records in ManySide (Order side)
         od1 = new Order();
         od1.setTotalAmount(100);
         od1.setPaymentMethod("credit card 1");
+        // connect c1 and od1
+        od1.setConsumer(c1);
 
         od2 = new Order();
         od2.setTotalAmount(200);
         od2.setPaymentMethod("credit card 2");
+        od2.setConsumer(c1);
 
-        orderDao = new OrderDaoImpl();
-        orderDao.save(od1);
-        orderDao.save(od2);
+//        orderDao = new OrderDaoImpl();
+        od1 = orderDao.save(od1);
+        od2 = orderDao.save(od2);
     }
     @After
     public  void tearDown(){
@@ -64,7 +76,7 @@ public class ConsumerDaoTest {
         Consumer consumer = consumerDao.getConsumerEagerBy(c1.getId());
         assertNotNull(consumer);
         assertEquals(consumer.getName(), c1.getName());
-        assertTrue(consumer.getOrders().size() > 0); // 1 ??
+        Assert.assertTrue(consumer.getOrders().size() > 1); // 1 ??
     }
 }
 
