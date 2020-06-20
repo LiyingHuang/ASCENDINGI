@@ -6,12 +6,14 @@ import org.hibernate.query.Query;
 import org.liying.model.Consumer;
 import org.liying.model.Order;
 import org.liying.model.ShoppingPlatform;
-import sun.security.ssl.HandshakeInStream;
+import org.springframework.stereotype.Repository;
 import util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
+
+@Repository
 public class ConsumerDaoImpl implements  ConsumerDao {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Override
@@ -51,7 +53,7 @@ public class ConsumerDaoImpl implements  ConsumerDao {
         return result;
     }
     @Override
-    //update
+    // retrieve
     public Consumer getBy(Long id) {
         String hql =" FROM Consumer c where c.id =Id";
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -89,9 +91,10 @@ public class ConsumerDaoImpl implements  ConsumerDao {
         }
         return  false;
     }
+    // retrieve
     @Override
     public Consumer getConsumerEagerBy(Long id) {
-        String hql = "FROM Consumer cons LEFT JOIN FETCH cons.orders WHERE cons.id = :Id";
+        String hql = "FROM Consumer con LEFT JOIN FETCH con.orders WHERE con.id = :Id";
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         try{
@@ -106,7 +109,6 @@ public class ConsumerDaoImpl implements  ConsumerDao {
             return null;
         }
     }
-
 
     @Override
     public Consumer update(Consumer consumer) {

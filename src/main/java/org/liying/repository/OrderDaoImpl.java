@@ -1,19 +1,21 @@
 package org.liying.repository;
 
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.liying.model.Consumer;
 import org.liying.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class OrderDaoImpl implements OrderDao{
 
     private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
@@ -111,9 +113,25 @@ public class OrderDaoImpl implements OrderDao{
         return false;
     }
 
+    // getOrderEagerBy(long id)
+    // getBy(Consumer c) order -> consumer (1 -> 1)
     @Override
-    public Order getOrderEagerBy(Long id) {
-        return null;
+    public Order getBy(Consumer c) {
+        // ???
+        String hql = "FROM Order od LEFT JOIN FETCH od.consumer c WHERE c.id = :Id";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        try{
+            Query<Order> query = session.createQuery(hql);
+            query.setParameter("Id", c.getId());
+            Order result = query.uniqueResult();
+            session.close();
+            return result;
+        }catch (HibernateException e){
+            logger.error("Failure to retrieve data record", e);
+            session.close();
+            return null;
+        }
     }
 
     @Override

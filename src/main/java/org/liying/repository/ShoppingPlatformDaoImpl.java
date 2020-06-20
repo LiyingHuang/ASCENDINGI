@@ -5,11 +5,15 @@ import org.hibernate.query.Query;
 import org.liying.model.ShoppingPlatform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Repository
+// shoppingPlatformDao sp = new ShoppingPlatformDaoImpl();
 public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
 
     private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
