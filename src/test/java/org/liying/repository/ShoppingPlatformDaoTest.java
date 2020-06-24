@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 // 3rd include OneToMany
 // 4th include SPRING @Autowired
 public class ShoppingPlatformDaoTest {
-    @Autowired
+    @Autowired //shoppingPlatformDao = new ShoppingPlatformDaoImpl();
     private ShoppingPlatformDao shoppingPlatformDao;
     @Autowired
     private ConsumerDao consumerDao;

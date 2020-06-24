@@ -31,22 +31,25 @@ public class OrderDaoTest {
         od1 = new Order();
         od1.setPaymentMethod("Cash");
         od1.setTotalAmount(100);
+        orderDao.save(od1);
+
 
         c = new Consumer();
         c.setPhone("123");
         c.setName("emily");
         c.setAddress("add1");
-//        c.setOrder(od1);
-        od1.setConsumer(c);
+        consumerDao.save(c);
 
-        od1 = orderDao.save(od1);
-        c = consumerDao.save(c);
+        od1.setConsumer(c);
+        consumerDao.save(c); // save c first, then od
+        orderDao.save(od1);
     }
     @After
     public void tearDown(){
+        orderDao.delete(od1);// delete od first, then c
         consumerDao.delete(c);
-        orderDao.delete(od1);
     }
+
     @Test
     public void getOrderTest(){
         List<Order> orders = orderDao.getOrders();
@@ -57,8 +60,8 @@ public class OrderDaoTest {
     public void getByTest(){
         Order order = orderDao.getBy(c);
         Assert.assertNotNull(order);
-//        Assert.assertEquals(order.getPaymentMethod(), od1.getPaymentMethod());
-//        Assert.assertEquals(order.getConsumer().getName(),c.getName());
+        Assert.assertEquals(order.getPaymentMethod(), od1.getPaymentMethod());
+        Assert.assertEquals(order.getConsumer().getName(),c.getName());
     }
 }
 
