@@ -15,8 +15,10 @@ import org.slf4j.LoggerFactory;
 import java.util.Properties;
 
 public class HibernateUtil {
-    private static SessionFactory sessionFactory;
-    private static Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
+    // HibernateConfig(make sure singleton) -> remove static
+    // static: in order to make singleton class
+    private SessionFactory sessionFactory;
+    private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
     /*
     Define JVM options
     -Ddatabase.driver=org.postgresql.Driver
@@ -25,7 +27,7 @@ public class HibernateUtil {
     -Ddatabase.user=admin
     -Ddatabase.password=password
      */
-    public static SessionFactory getSessionFactory(){
+    public SessionFactory getSessionFactory(){
         if (sessionFactory == null) {
             try {
                 String[] modelPackages = {"org.liying.model"};
@@ -65,12 +67,12 @@ public class HibernateUtil {
         }
         return sessionFactory;
     }
-    public static void main(String[] args){
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        logger.info("Success generate sf" + sf.hashCode());
-        Session s1 = sf.openSession();
-        Session s2 = sf.openSession();
-        s1.close();
-        s2.close();
-    }
+//    public static void main(String[] args){
+//        SessionFactory sf = HibernateUtil.getSessionFactory();
+//        logger.info("Success generate sf" + sf.hashCode());
+//        Session s1 = sf.openSession();
+//        Session s2 = sf.openSession();
+//        s1.close();
+//        s2.close();
+//    }
 }
