@@ -19,7 +19,6 @@ public class Consumer {
     private  String phone;
 //    @Column(name = "shipping_platform_id")
 //    private  long shippingPlatformID;
-
     @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Order> orders;
 
@@ -29,12 +28,16 @@ public class Consumer {
 
     public  Consumer(){}
 
-    public void setOrder(Set<Order> orders){
+    public Set<Order> getOrders() {
+        return orders;
+    }
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
-    public Set<Order> getOrders() {
-        return this.orders = orders;
+    public void setShoppingPlatform(ShoppingPlatform shoppingPlatform){
+        this.shoppingPlatform = shoppingPlatform;
     }
+
     public long getId() {
         return id;
     }
@@ -59,11 +62,7 @@ public class Consumer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public void setShoppingPlatform(ShoppingPlatform shoppingPlatform){
-        this.shoppingPlatform = shoppingPlatform;
-    }
-//    public long getShippingPlatformID() {
+    //    public long getShippingPlatformID() {
 //        return shippi ngPlatformID;
 //    }
 //    public void setShippingPlatformID(long shippingPlatformID) {

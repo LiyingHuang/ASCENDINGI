@@ -4,10 +4,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.liying.model.Consumer;
-import org.liying.model.Order;
-import org.liying.model.ShoppingPlatform;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import util.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -15,12 +13,14 @@ import java.util.List;
 
 @Repository
 public class ConsumerDaoImpl implements  ConsumerDao {
+
+    @Autowired private SessionFactory sessionFactory;
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     //create
     public Consumer save(Consumer consumer) {
         Transaction transaction = null;
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         try{
             transaction =session.beginTransaction();
@@ -39,7 +39,7 @@ public class ConsumerDaoImpl implements  ConsumerDao {
     //retrieve
     public List<Consumer> getConsumers() {
         String hql = "FROM Consumer";
-        SessionFactory sessionFactory =HibernateUtil.getSessionFactory();
+        //SessionFactory sessionFactory =HibernateUtil.getSessionFactory();
         Session S = sessionFactory.openSession();
         List<Consumer> result = new ArrayList<>();
         try{
@@ -56,7 +56,7 @@ public class ConsumerDaoImpl implements  ConsumerDao {
     // retrieve
     public Consumer getBy(Long id) {
         String hql =" FROM Consumer c where c.id =Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try{
             Query <Consumer> query =session.createQuery(hql);
             query.setParameter("Id" , id);
@@ -75,7 +75,7 @@ public class ConsumerDaoImpl implements  ConsumerDao {
         String hql ="DELETE Consumer as con where con.id=:Id";
         int deletedCount = 0;
         Transaction transaction = null;
-        Session session =HibernateUtil.getSessionFactory().openSession();
+        Session session =sessionFactory.openSession();
         try{
             transaction = session.beginTransaction();
             Query<Consumer>query = session.createQuery(hql);
@@ -95,7 +95,7 @@ public class ConsumerDaoImpl implements  ConsumerDao {
     @Override
     public Consumer getConsumerEagerBy(Long id) {
         String hql = "FROM Consumer con LEFT JOIN FETCH con.orders WHERE con.id = :Id";
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         try{
             Query<Consumer> query = session.createQuery(hql);

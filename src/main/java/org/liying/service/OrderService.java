@@ -1,4 +1,4 @@
-package org.liying.Service;
+package org.liying.service;
 
 import org.liying.model.Consumer;
 import org.liying.model.Order;

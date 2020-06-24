@@ -1,4 +1,4 @@
-package org.liying.Service;
+package org.liying.service;
 
 import org.liying.model.ShoppingPlatform;
 import org.liying.repository.ShoppingPlatformDao;

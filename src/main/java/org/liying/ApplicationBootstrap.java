@@ -9,4 +9,3 @@ public class ApplicationBootstrap {
         SpringApplication.run(org.liying.ApplicationBootstrap.class, args);
     }
 }
- 

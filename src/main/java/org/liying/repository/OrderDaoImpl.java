@@ -9,20 +9,20 @@ import org.liying.model.Consumer;
 import org.liying.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import util.HibernateUtil;
+import org.liying.util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class OrderDaoImpl implements OrderDao{
-
+    @Autowired private SessionFactory sessionFactory;
     private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
     @Override
     public Order save(Order order) {
-
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         try{
@@ -44,7 +44,7 @@ public class OrderDaoImpl implements OrderDao{
     @Override
     public List<Order> getOrders() {
         String hql = "FROM Order";
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
 
         List<Order> result = new ArrayList<>();
@@ -68,7 +68,7 @@ public class OrderDaoImpl implements OrderDao{
     @Override
     public Order getBy(Long id) {
         String hql = "FROM Order od WHERE od.id = :Id";
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         try{
@@ -93,7 +93,7 @@ public class OrderDaoImpl implements OrderDao{
     public boolean delete(Order order) {
         String hql = "DELETE Order as od where od.id = :Id";
         int deleteCount = 0;
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         transaction = session.beginTransaction();
@@ -119,7 +119,7 @@ public class OrderDaoImpl implements OrderDao{
     public Order getBy(Consumer c) {
         // ???
         String hql = "FROM Order od LEFT JOIN FETCH od.consumer c WHERE c.id = :Id";
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         try{
             Query<Order> query = session.createQuery(hql);

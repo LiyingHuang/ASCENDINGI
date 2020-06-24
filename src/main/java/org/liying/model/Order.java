@@ -1,7 +1,5 @@
 package org.liying.model;
-
 import javax.persistence.*;
-
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -22,10 +20,12 @@ public class Order {
     @JoinColumn(name = "consumer_id")
     private Consumer consumer;
 
+    public Consumer getConsumer() {
+        return consumer;
+    }
     public void setConsumer(Consumer consumer) {
         this.consumer = consumer;
     }
-
     public long getId() {
         return id;
     }
@@ -44,15 +44,4 @@ public class Order {
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
-    public Consumer getConsumer(){
-        return this.consumer = consumer;
-    }
-
-//    public long getConsumerId() {
-//        return consumerId;
-//    }
-//
-//    public void setConsumerId(long consumerId) {
-//        this.consumerId = consumerId;
-//    }
 }
