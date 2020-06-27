@@ -1,5 +1,6 @@
 package org.liying.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Set;
 
@@ -19,6 +20,7 @@ public class Consumer {
     private  String phone;
 //    @Column(name = "shipping_platform_id")
 //    private  long shippingPlatformID;
+    @JsonIgnore
     @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Order> orders;
 
@@ -61,6 +63,10 @@ public class Consumer {
     }
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    @Override
+    public String toString(){
+        return "{"+"id:"+getId()+", name:"+getName()+", address:"+getAddress()+", Phone:"+getPhone()+"}";
     }
     //    public long getShippingPlatformID() {
 //        return shippi ngPlatformID;

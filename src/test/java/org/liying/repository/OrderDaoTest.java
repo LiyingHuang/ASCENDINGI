@@ -33,7 +33,6 @@ public class OrderDaoTest {
         od1.setTotalAmount(100);
         orderDao.save(od1);
 
-
         c = new Consumer();
         c.setPhone("123");
         c.setName("emily");

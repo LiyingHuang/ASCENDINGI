@@ -14,11 +14,13 @@ import java.util.List;
 
 
 @Repository
-// shoppingPlatformDao sp = new ShoppingPlatformDaoImpl();
+// Store in Storage:
+// ShoppingPlatformDao sp = new ShoppingPlatformDaoImpl();
 public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
     @Autowired private SessionFactory sessionFactory;
 
     private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
+
     // create
     @Override
     public ShoppingPlatform save(ShoppingPlatform shoppingPlatform) {
@@ -61,6 +63,7 @@ public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
     @Override
     public ShoppingPlatform getBy(Long id) {
         String hql = "FROM ShoppingPlatform sp where sp.id = :Id";
+        //String hql = "FROM ShoppingPlatform sp JOIN FETCH sp.consumers where sp.id = :Id";
         //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session s = sessionFactory.openSession();
         try{
@@ -125,7 +128,19 @@ public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
 
     @Override
     public ShoppingPlatform update(ShoppingPlatform shoppingPlatform) {
-        return null;
+        Transaction transaction = null;
+        // SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(shoppingPlatform);
+            transaction.commit();
+            return  shoppingPlatform;
+        }catch(Exception e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("failure to update record", e.getMessage());
+            return null;
+        }
     }
 
     @Override

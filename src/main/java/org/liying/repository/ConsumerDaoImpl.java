@@ -1,4 +1,5 @@
 package org.liying.repository;
+
 import org.hibernate.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,7 +16,9 @@ import java.util.List;
 public class ConsumerDaoImpl implements  ConsumerDao {
 
     @Autowired private SessionFactory sessionFactory;
+
     private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     //create
     public Consumer save(Consumer consumer) {
@@ -36,6 +39,7 @@ public class ConsumerDaoImpl implements  ConsumerDao {
         }
     }
     @Override
+
     //retrieve
     public List<Consumer> getConsumers() {
         String hql = "FROM Consumer";
@@ -55,7 +59,7 @@ public class ConsumerDaoImpl implements  ConsumerDao {
     @Override
     // retrieve
     public Consumer getBy(Long id) {
-        String hql =" FROM Consumer c where c.id =Id";
+        String hql =" FROM Consumer c where c.id =: Id";
         Session session = sessionFactory.openSession();
         try{
             Query <Consumer> query =session.createQuery(hql);
@@ -112,7 +116,18 @@ public class ConsumerDaoImpl implements  ConsumerDao {
 
     @Override
     public Consumer update(Consumer consumer) {
-        return null;
+        Transaction transaction = null;
+        Session session = sessionFactory.openSession();
+        try{
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(consumer);
+            transaction.commit();
+            return consumer;
+        }catch(Exception e){
+            if (transaction != null) transaction.rollback();
+            logger.error("failure to update record", e.getMessage());
+            return null;
+        }
     }
     @Override
     public boolean delete(String consumerName) {

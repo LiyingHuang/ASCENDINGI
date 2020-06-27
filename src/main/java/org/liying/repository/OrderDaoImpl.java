@@ -12,14 +12,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.liying.util.HibernateUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class OrderDaoImpl implements OrderDao{
+
     @Autowired private SessionFactory sessionFactory;
+
     private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
+
     @Override
     public Order save(Order order) {
         //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -103,6 +105,7 @@ public class OrderDaoImpl implements OrderDao{
             deleteCount = query.executeUpdate();
             transaction.commit();
             session.close();
+            return deleteCount >=1 ? true : false;
         }catch (HibernateException e){
             if(transaction != null){
                 transaction.rollback();
@@ -135,8 +138,21 @@ public class OrderDaoImpl implements OrderDao{
     }
 
     @Override
-    public Order update(Order Order) {
-        return null;
+    public Order update(Order order) {
+        Transaction transaction = null;
+        Session session = sessionFactory.openSession();
+        try{
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(order);
+            transaction.commit();
+            session.close();
+            return order;
+        }catch(Exception e){
+            if(transaction != null) transaction.rollback();
+            logger.error("Failure to update data.");
+            session.close();
+            return null;
+        }
     }
 
     @Override

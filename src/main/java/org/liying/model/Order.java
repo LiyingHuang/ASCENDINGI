@@ -1,4 +1,6 @@
 package org.liying.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 @Entity
 @Table(name = "orders")
@@ -15,7 +17,7 @@ public class Order {
 //    private Long consumerId ;
 
     // order has fk, is owning side
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "consumer_id")
     private Consumer consumer;
@@ -44,4 +46,9 @@ public class Order {
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
+    @Override
+    public String toString(){
+        return "{ "+"id:"+getId()+", totalAmount:"+getTotalAmount()+", paymentMethod:"+getPaymentMethod()+" }";
+    }
+
 }

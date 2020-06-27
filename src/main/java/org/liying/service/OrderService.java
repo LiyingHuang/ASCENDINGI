@@ -1,11 +1,11 @@
 package org.liying.service;
-
 import org.liying.model.Consumer;
 import org.liying.model.Order;
 import org.liying.repository.OrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
-
+@Service
 public class OrderService {
     @Autowired
     private OrderDao orderDao;
@@ -25,4 +25,5 @@ public class OrderService {
     public Order getBy(Consumer c){
         return orderDao.getBy(c);
     }
+    public Order update(Order order){ return orderDao.update(order);}
 }

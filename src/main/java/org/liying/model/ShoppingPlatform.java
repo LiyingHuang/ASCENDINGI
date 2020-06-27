@@ -42,6 +42,9 @@
 //}
 package org.liying.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -49,20 +52,30 @@ import java.util.Set;
 @Entity
 @Table(name = "shopping_platforms")
 public class ShoppingPlatform {
+
+    //public static class ExtendedView extends BasicView{}
+    //public static class BasicView{}
     public ShoppingPlatform(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    //@JsonView(BasicView.class)
     private long id;
+
     @Column(name = "name")
+    //@JsonView(BasicView.class)
     private String name;
     @Column(name = "website")
+    //@JsonView(BasicView.class)
     private String website;
     @Column(name = "shipping_method")
+    //@JsonView(BasicView.class)
     private String shippingMethod;
 
     @OneToMany(mappedBy = "shoppingPlatform", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
+    //@JsonView(ExtendedView.class)
     private Set<Consumer> consumers;
 
     public Set<Consumer> getConsumers(){
@@ -101,4 +114,8 @@ public class ShoppingPlatform {
         this.shippingMethod = shippingMethod;
     }
 
+    @Override
+    public String toString(){
+        return "{"+"id:"+getId()+", name:"+getName()+", website:"+getWebsite()+", ShippingMethod:"+getShippingMethod()+"}";
+    }
 }
