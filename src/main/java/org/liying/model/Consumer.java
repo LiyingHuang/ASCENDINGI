@@ -20,12 +20,15 @@ public class Consumer {
     private  String phone;
 //    @Column(name = "shipping_platform_id")
 //    private  long shippingPlatformID;
+
+    // order
     @JsonIgnore
     @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Order> orders;
 
+    // sp
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shopping_platform_id")
+    @JoinColumn(name = "shopping_platform_id") // FK: sp's pk as consumer's fk
     private ShoppingPlatform shoppingPlatform;
 
     public  Consumer(){}
@@ -64,6 +67,7 @@ public class Consumer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
     @Override
     public String toString(){
         return "{"+"id:"+getId()+", name:"+getName()+", address:"+getAddress()+", Phone:"+getPhone()+"}";
