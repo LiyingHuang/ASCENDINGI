@@ -22,7 +22,6 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= ApplicationBootstrap.class)
-
 public class ConsumerDaoTest {
     @Autowired
     private ConsumerDao consumerDao;
