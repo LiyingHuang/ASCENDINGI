@@ -17,7 +17,16 @@ public class RoleService {
     public List<Role> getAllRoles(){
 //        List<Role> roleList = roleDao.findAllRoles();
 //        return roleList;
-        return roleDao.findAllRoles();
+        return roleDao.getAllRoles();
+    }
+    public Role save(Role role){
+        return roleDao.save(role);
+    }
+    public Role getById(Long Id){
+        return roleDao.getById(Id);
+    }
+    public boolean delete (Role role){
+        return roleDao.delete(role);
     }
 }
 

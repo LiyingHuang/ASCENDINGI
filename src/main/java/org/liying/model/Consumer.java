@@ -2,6 +2,7 @@ package org.liying.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 // write persistent class by using hibernate annotation
@@ -71,6 +72,24 @@ public class Consumer {
     @Override
     public String toString(){
         return "{"+"id:"+getId()+", name:"+getName()+", address:"+getAddress()+", Phone:"+getPhone()+"}";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id,name,address,phone); // key-value??
+    }
+
+
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Consumer consumer = (Consumer) o; // 强转
+        return id == consumer.id &&
+                name.equals(consumer.name) &&
+                Objects.equals(address, consumer.address) &&
+                Objects.equals(phone, consumer.phone);
     }
     //    public long getShippingPlatformID() {
 //        return shippi ngPlatformID;

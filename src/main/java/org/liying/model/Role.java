@@ -17,7 +17,7 @@ public class Role {
     @Column(name = "name")
     private String name;
     @Column(name = "allowed_resource")
-    private String allowedResource;
+    private String allowedResource;   //allowedResource: URIs
     @Column(name = "allowed_create")
     private Boolean allowedCreate;
     @Column(name = "allowed_read")
@@ -79,6 +79,19 @@ public class Role {
     }
     public void setUsers(Set users) {
         this.users = users;
+    }
+
+    public boolean isAllowedCreate() {
+        return allowedCreate;
+    }
+    public boolean isAllowedRead() {
+        return allowedRead;
+    }
+    public boolean isAllowedUpdate() {
+        return allowedUpdate;
+    }
+    public boolean isAllowedDelete() {
+        return allowedDelete;
     }
 
     @Override

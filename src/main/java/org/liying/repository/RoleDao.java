@@ -1,17 +1,16 @@
 package org.liying.repository;
 
 import org.liying.model.Role;
-import org.liying.model.User;
-import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Set;
 
-@Repository
+
 public interface RoleDao {
-
     Role getRoleByName(String name);
-    List<Role> findAllRoles();
+    List<Role> getAllRoles();
     Role save(Role role);
-    Role findById(Long Id);
+    Role getById(Long Id);
     boolean delete (Role role);
-
+    Role update (Role role);
+    Set<Role> getRoleByUserName (String UserName);
 }

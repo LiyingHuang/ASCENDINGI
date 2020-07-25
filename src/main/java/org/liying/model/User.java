@@ -1,6 +1,8 @@
 package org.liying.model;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,7 +12,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "name")
     private String name;
     @Column(name = "password")
@@ -23,24 +24,23 @@ public class User {
     private String LastName;
     @Column(name = "email")
     private String email;
-
     //@JsonIgnore
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "users_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roles123; //   ManyToMany: set better then list
+
+    private Set<Role> roles123 = new HashSet<>(); //   ManyToMany: set better then list
 
     // add (two direction)
     public void addRole(Role role){
         this.roles123.add(role);
-        role.getUsers().add(this);
+        //role.getUsers().add(this);
     }
-
     // remove (two direction)
     public void removeRole(Role role){
         this.roles123.remove(role);
-        role.getUsers().remove(this);
+        //role.getUsers().remove(this);
     }
 
     public Long getId() {
@@ -59,7 +59,7 @@ public class User {
         return password;
     }
     public void setPassword(String password) {
-        this.password = password;
+        this.password = DigestUtils.md5Hex(password.trim());
     }
     public String getSecretKey() {
         return secretKey;

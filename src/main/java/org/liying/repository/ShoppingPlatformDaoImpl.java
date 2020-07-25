@@ -19,14 +19,13 @@ import java.util.List;
 public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
     @Autowired private SessionFactory sessionFactory;
 
-    private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     // create
     @Override
     public ShoppingPlatform save(ShoppingPlatform shoppingPlatform) {
         Transaction transaction = null;
         //Session session = HibernateUtil.getSessionFactory().openSession();
-
         //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         try{
@@ -111,7 +110,7 @@ public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
         //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session s = sessionFactory.openSession();
         try{
-            Query<ShoppingPlatform> query = s.createQuery(hql); // before set?
+            Query<ShoppingPlatform> query = s.createQuery(hql);
             query.setParameter("Id", id);
             ShoppingPlatform result = query.uniqueResult(); //??
             s.close();

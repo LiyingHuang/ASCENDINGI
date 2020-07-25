@@ -16,7 +16,7 @@ public class HibernateUtil {
     // HibernateConfig(make sure singleton) -> remove static
     // static: in order to make singleton class
     private SessionFactory sessionFactory;
-    private Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
+    private Logger logger = LoggerFactory.getLogger(getClass());
     /*
     Define JVM options
     -Ddatabase.driver=org.postgresql.Driver
