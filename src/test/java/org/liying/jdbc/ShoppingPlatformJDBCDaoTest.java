@@ -1,4 +1,4 @@
-package jdbc;
+package org.liying.jdbc;
 import org.liying.jdbc.ShoppingPlatformJDBC;
 import org.liying.jdbc.ShoppingPlatformJDBCDao;
 import org.liying.model.ShoppingPlatform;

@@ -1,4 +1,4 @@
-package jdbc;
+package org.liying.jdbc;
 import org.liying.jdbc.ConsumerJDBC;
 import org.liying.jdbc.ConsumerJDBCDao;
 import org.junit.After;

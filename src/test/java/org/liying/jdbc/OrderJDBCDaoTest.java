@@ -1,4 +1,4 @@
-package jdbc;
+package org.liying.jdbc;
 
 import org.junit.After;
 import org.junit.Before;

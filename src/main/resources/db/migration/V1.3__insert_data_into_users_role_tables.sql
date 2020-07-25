@@ -1,7 +1,7 @@
 insert into role (name, allowed_resource, allowed_read, allowed_create, allowed_update, allowed_delete) values
 ('Admin', '/', 'Y', 'Y', 'Y', 'Y'),
-('Manager', '/depts,/departments,/employees,/ems,/acnts,/accounts', 'Y', 'Y', 'Y', 'N'),
-('user', '/employees,/ems,/acnts,/accounts', 'Y', 'N', 'N', 'N')
+('Manager', '/platform,/shoppingPlatform,/consumer,/con,/order', 'Y', 'Y', 'Y', 'N'),
+('user', '/consumer,/con,/order', 'Y', 'N', 'N', 'N')
 ;
 commit;
 
