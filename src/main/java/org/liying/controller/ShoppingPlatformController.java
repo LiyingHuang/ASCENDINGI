@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@RequestMapping(value = {"/shoppingPlatform","/shopping_platform","shoppingPlatforms"})
+//@RequestMapping(value = {"/shoppingPlatform","/shopping_platform","/shoppingPlatforms"})
 public class ShoppingPlatformController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
