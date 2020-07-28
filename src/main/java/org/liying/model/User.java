@@ -1,5 +1,6 @@
 package org.liying.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -29,7 +30,6 @@ public class User {
     @JoinTable(name = "users_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-
     private Set<Role> roles123 = new HashSet<>(); //   ManyToMany: set better then list
 
     // add (two direction)
@@ -41,6 +41,17 @@ public class User {
     public void removeRole(Role role){
         this.roles123.remove(role);
         //role.getUsers().remove(this);
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private Set<Image> images;
+
+    public Set<Image> getImages() {
+        return images;
+    }
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     public Long getId() {
@@ -105,7 +116,6 @@ public class User {
                 Objects.equals(LastName, user.LastName) &&
                 Objects.equals(email, user.email);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, name, password, secretKey, firstName, LastName, email);

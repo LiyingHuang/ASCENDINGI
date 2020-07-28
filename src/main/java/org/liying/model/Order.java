@@ -1,7 +1,8 @@
 package org.liying.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -46,6 +47,7 @@ public class Order {
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
+
     @Override
     public String toString(){
         return "{ "+"id:"+getId()+", totalAmount:"+getTotalAmount()+", paymentMethod:"+getPaymentMethod()+" }";

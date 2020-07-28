@@ -16,8 +16,8 @@ import java.util.List;
 @Repository
 public class ConsumerDaoImpl implements  ConsumerDao {
 
-    @Autowired private SessionFactory sessionFactory;
-
+    @Autowired
+    private SessionFactory sessionFactory;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override

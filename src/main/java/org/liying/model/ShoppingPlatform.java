@@ -100,7 +100,6 @@ public class ShoppingPlatform {
     public void setWebsite(String website) {
         this.website = website;
     }
-
     public String getShippingMethod() {
         return shippingMethod;
     }
