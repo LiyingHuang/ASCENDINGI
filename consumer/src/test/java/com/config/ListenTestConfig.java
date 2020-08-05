@@ -1,6 +1,6 @@
-package org.liying.config;
+package com.config;
 
-import com.amazonaws.services.s3.AmazonS3;
+import com.amazon.sqs.javamessaging.SQSConnection;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Scope;
 import static org.mockito.Mockito.mock;
 
 @Configuration
-@Profile({"unit"})
-public class AWSTestConfig {
-    @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public AmazonS3  getAmazonS3(){
-        return mock(AmazonS3.class);
-    }
+//@Profile({"unit"})
+public class ListenTestConfig {
+//    @Bean
+//    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+//    public SQSConnection getConnection(){
+//        return mock(SQSConnection.class);
+//    }
 }

@@ -20,15 +20,12 @@ public class FileService {
     //@Autowired (Field Dependency Injection)
     private AmazonS3 amazonS3;
     private Logger logger = LoggerFactory.getLogger(getClass());
-
 //    通过环境变量传入bucketName
 //    @Value("${liyingjdk-s3-bucket-1}")
 //    private String bucketName;
     private String bucketName = System.getProperty("s3-bucketName");
-
     // 直接传入bucketName
     //String bucketName = "liyingjdk-s3-bucket-1";
-
     // Constructor Dependency Injection
     public FileService(@Autowired AmazonS3 amazonS3) { this.amazonS3 = amazonS3; }
 
