@@ -32,6 +32,7 @@ public class MessageService {
         this.sqsClient = sqsClient;
         this.queueUrl = getQueueUrl(queueName);
     }
+
     public String getQueueUrl(String queueName) {
         GetQueueUrlResult getQueueUrlResult = sqsClient.getQueueUrl(queueName);
         logger.info("QueueUrl: " + getQueueUrlResult.getQueueUrl());

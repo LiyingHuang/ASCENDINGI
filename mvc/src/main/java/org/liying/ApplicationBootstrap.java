@@ -7,12 +7,13 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
 @ServletComponentScan(basePackages = {"org.liying.filter"})
 @SpringBootApplication(scanBasePackages = {"org.liying"})
-public class ApplicationBootstrap {
+public class ApplicationBootstrap extends SpringBootServletInitializer {
     private Logger logger = LoggerFactory.getLogger(getClass());
     public static void main(String[] args){
         SpringApplication.run(org.liying.ApplicationBootstrap.class, args);

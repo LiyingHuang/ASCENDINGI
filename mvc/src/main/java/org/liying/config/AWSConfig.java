@@ -3,6 +3,10 @@ package org.liying.config;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import org.hibernate.SessionFactory;
+import org.liying.util.HibernateUtil;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +18,15 @@ import org.springframework.context.annotation.Scope;
 public class AWSConfig {
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public AmazonSQS getAmazonSQS(){
+        AmazonSQS sqsClient = AmazonSQSClientBuilder.standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withRegion("us-east-1")
+                .build();
+        return sqsClient;
+    }
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public AmazonS3 getAmazonS3(){
  //Default
          AmazonS3 s3client = AmazonS3ClientBuilder.standard()
@@ -21,7 +34,6 @@ public class AWSConfig {
                 .withRegion("us-east-1")
                 .build();
          return s3client;
-
 /*
 // hard code
         String myAWSAccessKeyId = System.getProperty("aws.accessKeyId");

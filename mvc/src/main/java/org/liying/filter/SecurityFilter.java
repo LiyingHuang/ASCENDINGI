@@ -7,12 +7,12 @@ import org.liying.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 
 @WebFilter(filterName = "securityFilter", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
 public class SecurityFilter implements Filter {
@@ -25,7 +25,6 @@ public class SecurityFilter implements Filter {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -35,6 +34,9 @@ public class SecurityFilter implements Filter {
         // 3. decrypt token to get claim
         // 4. verify username information in our db from claim
         // 5. doFilter dispatch to controller
+        if (userService == null) {
+            SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, servletRequest.getServletContext());
+        }
         int statusCode = authorization((HttpServletRequest)servletRequest);
         logger.info("Security Filter");
         if(statusCode == HttpServletResponse.SC_ACCEPTED)filterChain.doFilter(servletRequest,servletResponse);
@@ -76,12 +78,9 @@ public class SecurityFilter implements Filter {
                 }
             }
         }
-
         catch (Exception e) {
             logger.error("can't verify the token",e);
         }
         return statusCode;
     }
-
-
 }

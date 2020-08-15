@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Service
 public class FileService {
-    //@Autowired (Field Dependency Injection)
+    @Autowired//(Field Dependency Injection)
     private AmazonS3 amazonS3;
     private Logger logger = LoggerFactory.getLogger(getClass());
 //    通过环境变量传入bucketName
@@ -27,7 +27,7 @@ public class FileService {
     // 直接传入bucketName
     //String bucketName = "liyingjdk-s3-bucket-1";
     // Constructor Dependency Injection
-    public FileService(@Autowired AmazonS3 amazonS3) { this.amazonS3 = amazonS3; }
+ //   public FileService(@Autowired AmazonS3 amazonS3) { this.amazonS3 = amazonS3; }
 
     public void uploadFile(File file) throws IOException {
         PutObjectRequest request = new PutObjectRequest(bucketName, file.getName(), file);
