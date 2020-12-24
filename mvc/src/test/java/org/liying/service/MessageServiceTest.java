@@ -26,6 +26,7 @@ public class MessageServiceTest {
     public void sendMessageTest(){
         messageService.sendMessage("test",1);
     }
+
     @Test
     public void getQueueUrlTest(){
         messageService.getQueueUrl("123");

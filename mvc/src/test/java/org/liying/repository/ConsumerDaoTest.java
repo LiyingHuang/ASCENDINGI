@@ -67,7 +67,7 @@ public class ConsumerDaoTest {
     @Test
     public  void getConsumerTest(){
         List<Consumer> consumers = consumerDao.getConsumers();
-        int expectNumerOfConsumer = 1;
+        int expectNumerOfConsumer = 2;
         assertEquals(expectNumerOfConsumer,consumers.size());
     }
     @Test

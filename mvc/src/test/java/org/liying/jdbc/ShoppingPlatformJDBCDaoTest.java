@@ -27,7 +27,7 @@ public class ShoppingPlatformJDBCDaoTest {
     public void getShoppingPlatformTest(){
         logger.debug("Start unit test for shoppingPlatformJDBCDao ...");
         List<ShoppingPlatformJDBC> shoppingPlatformList = shoppingPlatformJDBCDao.getShoppingPlatforms();
-        assertEquals(4,shoppingPlatformList.size()) ;
+        assertEquals(1,shoppingPlatformList.size()) ;
         // getShoppingPlatform() return List
         //assertEquals(shoppingPlatformDao.getShoppingPlatform().size());
     }

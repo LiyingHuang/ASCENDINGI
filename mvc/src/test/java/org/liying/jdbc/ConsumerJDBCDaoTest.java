@@ -25,6 +25,5 @@ public class ConsumerJDBCDaoTest {
         logger.debug("Start unit test for shoppingPlatformJDBCDao ...");
         List<ConsumerJDBC> consumers = consumerJDBCDao.getConsumers();
         assertEquals(0,consumers.size());
-
     }
 }

@@ -18,12 +18,12 @@ public class  AWSS3ServiceTest {
     @Autowired
     private AWSS3Service awss3Service;
 
-    @Test
-    public void testCreateBucket() {
-        String bucketName = "liyingjdk8-s3-bucket-1";
-        Bucket bucket = awss3Service.createBucket(bucketName);
-        Assert.assertNotNull(bucket);
-    }
+//    @Test
+//    public void testCreateBucket() {
+//        String bucketName = "liyingjdk8-s3-bucket-1";
+//        Bucket bucket = awss3Service.createBucket(bucketName);
+//        Assert.assertNotNull(bucket);
+//    }
 
 
 

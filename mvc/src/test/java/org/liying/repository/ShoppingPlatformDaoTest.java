@@ -80,7 +80,7 @@ public class ShoppingPlatformDaoTest {
     @Test
     public void getShoppingPlatformsTest(){
         List<ShoppingPlatform> shoppingPlatforms = shoppingPlatformDao.getShoppingPlatforms();
-        int expectedNumberOfShoppingPlatform = 6;
+        int expectedNumberOfShoppingPlatform = 2;
         Assert.assertEquals(expectedNumberOfShoppingPlatform, shoppingPlatforms.size());
     }
 
