@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
@@ -21,9 +22,9 @@ public class FileService {
     private AmazonS3 amazonS3;
     private Logger logger = LoggerFactory.getLogger(getClass());
 //    通过环境变量传入bucketName
-//    @Value("${liyingjdk-s3-bucket-1}")
+//    @Value("${liyingjdk-s3-bucket-1}")  // 通过spring annotation注入一个普通属性
 //    private String bucketName;
-    private String bucketName = System.getProperty("s3-bucketName");
+     private String bucketName = System.getProperty("s3-bucketName");
     // 直接传入bucketName
     //String bucketName = "liyingjdk-s3-bucket-1";
     // Constructor Dependency Injection

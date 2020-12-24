@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 
+
+// 配置拦截路径/* 访问所有资源之前都会被拦截
 @WebFilter(filterName = "logFilter", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
 public class LogFilter implements Filter {
 
@@ -33,6 +35,7 @@ public class LogFilter implements Filter {
         String logInfo = logInfo(req);
         logger.info("PRE_PROCESSING...im in log filter, then doFilter.");
         // pre-processing before this line
+        // 放行
         filterChain.doFilter(request, response);
         // RUN the 2nd filter, 3rd filter....
         // run controller
@@ -72,6 +75,7 @@ public class LogFilter implements Filter {
                 .append("responseTime ms").append(" | ")
                 .append(formData).toString();
     }
+
     private boolean isIgnoredWord(String word, List<String> excludedWords) {
         for (String excludedWord : excludedWords) {
             if (word.toLowerCase().contains(excludedWord)) return true;

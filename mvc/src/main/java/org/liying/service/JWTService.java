@@ -46,7 +46,7 @@ public class JWTService {
 //        String allowedResource = roles.stream().map(role -> role.getAllowedResource()).collect(Collectors.joining(","));
 //        claims.put("allowedResource", allowedResource);
 
-        // for each role in roels
+        // for each role in roles
         for (Role role : roles) {
             if (role.isAllowedRead()) allowedReadResources = String.join(role.getAllowedResource(), allowedReadResources, ",");
             if (role.isAllowedCreate()) allowedCreateResources = String.join(role.getAllowedResource(), allowedCreateResources, ",");

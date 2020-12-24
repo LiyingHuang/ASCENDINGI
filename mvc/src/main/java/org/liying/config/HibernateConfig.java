@@ -5,9 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.liying.util.HibernateUtil;
 
-@Configuration
+@Configuration  //用于指定当前类是一个Spring配置类，当创建容器时会从该类上加载注解
 public class HibernateConfig {
-    @Bean
+    @Bean // 使用在方法上，标注该方法的返回值存储到spring容器中
     // costumized the new object then stroed in storage
     // SF sF = hibernateUtil.getSessionFactory();
     public SessionFactory getHibernateSessionFactory(){
@@ -15,3 +15,6 @@ public class HibernateConfig {
         return hibernateUtil.getSessionFactory();
     }
 }
+
+// @PropertySource 用于加载properties文件中的配置
+// @Import 用于导入其他配置类

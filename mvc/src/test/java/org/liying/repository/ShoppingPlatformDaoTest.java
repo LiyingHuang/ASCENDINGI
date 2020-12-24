@@ -9,13 +9,29 @@ import org.liying.model.Consumer;
 import org.liying.model.ShoppingPlatform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes= ApplicationBootstrap.class)
+/*
+
+spring集成junit
+ 1. 让SpringJunit负责创建spring容器，但是需要将配置文件名称告诉它
+ 2. 将需要进行测试的bean直接在测试类中进行注入
+
+步骤：
+1 导入spring集成junit坐标 （spring没有自带test）
+2 使用@runwith
+3 使用@ContextConfiguration指定配置文件或者配置类 （我们用的是@SpringBootTest）
+4 用@Autowired注入需要测试的对象
+5 创建测试方法进行测试
+
+*/
+
+@RunWith(SpringRunner.class)   // 声明找spring的内核跑测试，先完成一些东西，spring再去找junit
+@SpringBootTest(classes = ApplicationBootstrap.class)  // 全注解方式：告诉它配置文件的字节码文件
 // 3rd include OneToMany
 // 4th include SPRING @Autowired
 public class ShoppingPlatformDaoTest {

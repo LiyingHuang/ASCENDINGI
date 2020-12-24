@@ -45,6 +45,7 @@ public class ProcessService {
         } else {
             return;
         }
+
         // setFrom: the email's from address.
         String from = emailDetails.get("from").toString();
         mail.setFrom(new Email(from)); //??

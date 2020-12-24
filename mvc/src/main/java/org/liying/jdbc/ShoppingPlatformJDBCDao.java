@@ -82,11 +82,13 @@ public class ShoppingPlatformJDBCDao {
         }
         return shoppingPlatforms;
     }
+
     public static void main(String[] args){
         ShoppingPlatformJDBCDao shoppingPlatformJDBCDao = new ShoppingPlatformJDBCDao();
         System.out.println(shoppingPlatformJDBCDao.getShoppingPlatforms());
         System.out.println(shoppingPlatformJDBCDao.getShoppingPlatforms().size());
     }
+
 }
 
 

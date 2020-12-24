@@ -38,5 +38,15 @@ public class ShoppingPlatformJDBC {
     public void setShippingMethod(String shippingMethod) {
         this.shippingMethod = shippingMethod;
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingPlatformJDBC{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", website='" + website + '\'' +
+                ", shippingMethod='" + shippingMethod + '\'' +
+                '}';
+    }
 }
 

@@ -32,7 +32,7 @@ public class SecurityFilter implements Filter {
         // 1. extract authorization header
         // 2. remove Bearer to get token
         // 3. decrypt token to get claim
-        // 4. verify username information in our db from claim
+        // 4. verify username information in our db from claim/payload
         // 5. doFilter dispatch to controller
         if (userService == null) {
             SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, servletRequest.getServletContext());
@@ -62,11 +62,11 @@ public class SecurityFilter implements Filter {
             if(claims.getId()!=null){
                 User u = userService.findById(Long.valueOf(claims.getId()));
                 if(u==null) return statusCode;
-//                statusCode = HttpServletResponse.SC_ACCEPTED;
+            // statusCode = HttpServletResponse.SC_ACCEPTED;
             }
             String allowedResources = "/";
             switch(verb) {
-                case "GET"     : allowedResources = (String)claims.get("allowedReadResources");   break;
+                case "GET"    : allowedResources = (String)claims.get("allowedReadResources"); break;
                 case "POST"   : allowedResources = (String)claims.get("allowedCreateResources"); break;
                 case "PUT"    : allowedResources = (String)claims.get("allowedUpdateResources"); break;
                 case "DELETE" : allowedResources = (String)claims.get("allowedDeleteResources"); break;

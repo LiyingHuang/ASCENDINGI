@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-//@RequestMapping(value = {"/shoppingPlatform","/shopping_platform","/shoppingPlatforms"})
+@RestController  // @Controller用于web层上实例bean--配合组件扫描一起用
+//@RequestMapping(value = {"/shoppingPlatform","/shopping_platform","/shoppingPlatforms"}) //用于和下面的url进行拼接
 public class ShoppingPlatformController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
@@ -25,10 +25,13 @@ public class ShoppingPlatformController {
 
     // GET /shoppingPlatform
     // RETRIEVE all sps
+    // requestmapping的作用就是把一个 请求的虚拟地址 映射到某一个具体的方法上
+    // 用于建立url和处理请求方法之间的对应关系
+    // http://localhost:8080/shoppingPlatform
     @RequestMapping(value = "/shoppingPlatform", method = RequestMethod.GET)
     public List<ShoppingPlatform> getShoppingPlatforms(){
-        logger.debug("I'm in shoppingplatform Controller GET sps.");
-        return shoppingPlatformService.getShoppingPlatforms();
+        logger.debug("I'm in shopping platform Controller GET sps."); // console
+        return shoppingPlatformService.getShoppingPlatforms(); // 返回到页面
     }
 
     // GET /shoppingPlatform/1
@@ -39,9 +42,9 @@ public class ShoppingPlatformController {
         return shoppingPlatformService.getBy(id);
     }
 
-    // PATCH /shoppingPlatform/1 ?name=changeName
+    // PATCH /shoppingPlatform/1 ? name=changeName
     // UPDATE name by passing id and changeName
-    @RequestMapping(value ="/shoppingPlatform/{Id}",method = RequestMethod.PATCH)
+    @RequestMapping(value ="/shoppingPlatform/{Id}",method = RequestMethod.PATCH,params = "name")
     public ShoppingPlatform updateShoppingPlatformName(@PathVariable("Id") Long Id, @RequestParam("name") String name){
         logger.info("pass in variable id :" + Id.toString() + "name:" + name);
         ShoppingPlatform sp = shoppingPlatformService.getBy(Id);
@@ -57,13 +60,15 @@ public class ShoppingPlatformController {
     }
     */
 
+
+    // spring 可以自动封装一个ShoppingPlatform对象
     // POST /shoppingPlatform
     // CREATE sp by passing sp(request body)
     @RequestMapping(value = "/shoppingPlatform", method = RequestMethod.POST)
     public ShoppingPlatform createShoppingPlatform (@RequestBody ShoppingPlatform newObject){
         logger.debug("ShoppingPlatform:" + newObject.toString());
         //String msg = "The shopping platform was created.";
-        ShoppingPlatform sp = shoppingPlatformService.save(newObject);
+        ShoppingPlatform sp = shoppingPlatformService.save(newObject);  // 存入数据库
         //if (sp == null) {msg = "The shopping platform was not created.";}
         return sp;
     }

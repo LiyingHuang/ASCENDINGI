@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service  // 使用在service层 类上用于实例化bean
 public class AWSS3Service {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private AmazonS3 amazonS3;
