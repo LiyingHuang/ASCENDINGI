@@ -29,9 +29,8 @@ public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
         Transaction transaction = null;
         //Session session = HibernateUtil.getSessionFactory().openSession();
         //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        // 得到session对象，该对象session已经实现了基本的sql增删改查语句
 
-        // 得到session对象，该对象sesssion已经实现了基本的sql增删改查语句
-        //
         Session session = sessionFactory.openSession();
         try{
             // 事务管理: 开启事务（通过session对象）
@@ -41,20 +40,22 @@ public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
             // 提交事务
             transaction.commit();
             // 释放资源
-            session.close();
+            // session.close();
             return shoppingPlatform;
         }catch (Exception e){
             //
             if (transaction != null) transaction.rollback();
             logger.error("Failure to insert record");
-            session.close();
+            // session.close();
             return null;
+        }finally {
+            session.close();
         }
     }
     //  session.createQuery(hql) 取到所有的ShoppingPlatform
     @Override
     public List<ShoppingPlatform> getShoppingPlatforms() {
-        String hql = "FROM ShoppingPlatform";
+        String hql = "FROM ShoppingPlatform";  // SELECT s FROM ShoppingPlatform
         //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session s = sessionFactory.openSession();
         List<ShoppingPlatform> result = new ArrayList<>();
@@ -125,6 +126,7 @@ public class ShoppingPlatformDaoImpl implements ShoppingPlatformDao {
 
     @Override
     public ShoppingPlatform getShoppingPlatformsEagerBy(Long id) {
+        //sql：select * from shopping_platforms as sp left join consumers as con
         String hql = "FROM ShoppingPlatform sp LEFT JOIN FETCH sp.consumers where sp.id = :Id";
         //SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session s = sessionFactory.openSession();

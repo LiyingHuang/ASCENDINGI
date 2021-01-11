@@ -27,6 +27,7 @@ public class Role {
     @Column(name = "allowed_delete")
     private Boolean allowedDelete;
 
+    // RoleSide
     @JsonIgnore
     @ManyToMany(mappedBy = "roles123")
     private Set<User> users;

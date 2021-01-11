@@ -23,47 +23,64 @@ public class SecurityFilter implements Filter {
     @Autowired
     private UserService userService;
     private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
+    public void init(FilterConfig filterConfig) throws ServletException {}
+    // 1. extract authorization header
+    // 2. remove Bearer to get token： Bearer: token -> token
+
+    // 3. decrypt token to get claim
+    // 4. verify username information in our db from claim/payload
+    // 5. doFilter dispatch to controller
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        // 1. extract authorization header
-        // 2. remove Bearer to get token
-        // 3. decrypt token to get claim
-        // 4. verify username information in our db from claim/payload
-        // 5. doFilter dispatch to controller
         if (userService == null) {
             SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, servletRequest.getServletContext());
         }
+        // 1. 通过authorization方法的处理看当前的request的statusCode -> SC_UNAUTHORIZED 或者 SC_ACCEPTED
         int statusCode = authorization((HttpServletRequest)servletRequest);
         logger.info("Security Filter");
-        if(statusCode == HttpServletResponse.SC_ACCEPTED)filterChain.doFilter(servletRequest,servletResponse);
-        else ((HttpServletResponse)servletResponse).sendError(statusCode);
+        // 2.1 statusCode的状态是SC_ACCEPTED，则用doFilter传递给下一个filter
+        if(statusCode == HttpServletResponse.SC_ACCEPTED) {
+            filterChain.doFilter(servletRequest,servletResponse);
+        }
+        // 2.2 否则返回error
+        else {
+            ((HttpServletResponse)servletResponse).sendError(statusCode);
+        }
     }
 
     @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 
     private int authorization(HttpServletRequest req) {
+
+        // 1. 先定义一个SC_UNAUTHORIZED statusCode为SC_UNAUTHORIZED状态
         int statusCode = HttpServletResponse.SC_UNAUTHORIZED;
         String uri = req.getRequestURI();
         String verb = req.getMethod();
-        if (uri.equalsIgnoreCase(AUTH_URI) || uri.equalsIgnoreCase(SIGNUP_URI)) return HttpServletResponse.SC_ACCEPTED;
+
+        // 如果是登录/注册请求，则不用经过filter  /auth authentication就是登录
+        if (uri.equalsIgnoreCase(AUTH_URI) || uri.equalsIgnoreCase(SIGNUP_URI)) {
+            return HttpServletResponse.SC_ACCEPTED;
+        }
         try {
-            String token = req.getHeader("Authorization").replaceAll("^(.*?) ", ""); // 去掉 Beare:<>    ^ 匹配行首
+            // 2. Authentication正式开始
+            // Bearer: token -> token    ^ 匹配行首，"^(.*?) "把空格替换为""
+            String token = req.getHeader("Authorization").replaceAll("^(.*?) ", "");
+            // 2.1 验证token
             if (token == null || token.isEmpty()) return statusCode;
-            // decrypt token to get claims
+            // 2.2 decrypt token to get claims 把token里面的东西拿来去数据库取东西
             Claims claims = jwtService.decryptJwtToken(token);
-            // check claims with the first and second part of JWT
+            // 能通过token里面的id取到一个user
             if(claims.getId()!=null){
                 User u = userService.findById(Long.valueOf(claims.getId()));
                 if(u==null) return statusCode;
             // statusCode = HttpServletResponse.SC_ACCEPTED;
             }
+
+            // Authorization
             String allowedResources = "/";
             switch(verb) {
                 case "GET"    : allowedResources = (String)claims.get("allowedReadResources"); break;
@@ -77,6 +94,7 @@ public class SecurityFilter implements Filter {
                     break;
                 }
             }
+
         }
         catch (Exception e) {
             logger.error("can't verify the token",e);

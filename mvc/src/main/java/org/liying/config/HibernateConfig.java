@@ -8,7 +8,7 @@ import org.liying.util.HibernateUtil;
 @Configuration  //用于指定当前类是一个Spring配置类，当创建容器时会从该类上加载注解
 public class HibernateConfig {
     @Bean // 使用在方法上，标注该方法的返回值存储到spring容器中
-    // costumized the new object then stroed in storage
+    // customized the new object then stored in storage
     // SF sF = hibernateUtil.getSessionFactory();
     public SessionFactory getHibernateSessionFactory(){
         HibernateUtil hibernateUtil = new HibernateUtil();

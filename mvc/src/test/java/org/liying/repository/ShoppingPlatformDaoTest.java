@@ -16,7 +16,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /*
-
 spring集成junit
  1. 让SpringJunit负责创建spring容器，但是需要将配置文件名称告诉它
  2. 将需要进行测试的bean直接在测试类中进行注入
@@ -27,7 +26,6 @@ spring集成junit
 3 使用@ContextConfiguration指定配置文件或者配置类 （我们用的是@SpringBootTest）
 4 用@Autowired注入需要测试的对象
 5 创建测试方法进行测试
-
 */
 
 @RunWith(SpringRunner.class)   // 声明找spring的内核跑测试，先完成一些东西，spring再去找junit
@@ -50,16 +48,16 @@ public class ShoppingPlatformDaoTest {
         sp1.setName("sp1");
         sp1.setShippingMethod("sp1_fedex");
         sp1.setWebsite("www.sp1.com");
-//        shoppingPlatformDao = new ShoppingPlatformDaoImpl();
         sp1 = shoppingPlatformDao.save(sp1);
 
-//        consumerDao = new ConsumerDaoImpl();
         // save record in Many side
         c1 = new Consumer();
         c1.setAddress("c1_ADDRESS");
         c1.setName("c1_name");
         c1.setPhone("c1_phone12345");
+        // 将many side和one side通过setShoppingPlatform联系起来
         c1.setShoppingPlatform(sp1);
+        // 再save
         consumerDao.save(c1);
 
         c2 = new Consumer();
@@ -77,6 +75,7 @@ public class ShoppingPlatformDaoTest {
         // delete record in One side
         shoppingPlatformDao.delete(sp1);
     }
+
     @Test
     public void getShoppingPlatformsTest(){
         List<ShoppingPlatform> shoppingPlatforms = shoppingPlatformDao.getShoppingPlatforms();

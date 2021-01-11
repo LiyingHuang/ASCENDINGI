@@ -40,6 +40,7 @@ public class UserService {
     public User getUserByCredentials(String emailOrName, String password) throws Exception {return userDao.getUserByCredentials(emailOrName,password);}
 
 
+
     public User setRole(String userName, String roleName){
         User user = userDao.getUserByName(userName);
         Set<Role> roles = user.getRoles123(); // Get roles(Set) by user

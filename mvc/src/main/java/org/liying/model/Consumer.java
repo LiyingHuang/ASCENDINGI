@@ -19,10 +19,9 @@ public class Consumer {
     private  String address;
     @Column(name = "phone")
     private  String phone;
-//    @Column(name = "shipping_platform_id")
-//    private  long shippingPlatformID;
 
-    // order
+
+    // consumer side
     @JsonIgnore
     @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Order> orders;
@@ -31,6 +30,8 @@ public class Consumer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shopping_platform_id") // FK: sp's pk as consumer's fk
     private ShoppingPlatform shoppingPlatform;
+//    @Column(name = "shipping_platform_id")
+//    private  long shippi ngPlatformID;
 
     public  Consumer(){}
 
@@ -91,8 +92,8 @@ public class Consumer {
                 Objects.equals(address, consumer.address) &&
                 Objects.equals(phone, consumer.phone);
     }
-    //    public long getShippingPlatformID() {
-//        return shippi ngPlatformID;
+//    public long getShippingPlatformID() {
+//        return shippingPlatformID;
 //    }
 //    public void setShippingPlatformID(long shippingPlatformID) {
 //        this.shippingPlatformID = shippingPlatformID;

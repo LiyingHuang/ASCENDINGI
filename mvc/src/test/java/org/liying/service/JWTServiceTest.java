@@ -1,7 +1,9 @@
 package org.liying.service;
 
 import io.jsonwebtoken.Claims;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.liying.ApplicationBootstrap;
@@ -22,15 +24,25 @@ public class JWTServiceTest {
     //JWTService jwtService = new JWTService();
     @Autowired private UserService userService;
 
-    @Test
-    public void generateTokenTest(){
-        User u = new User();
+    private User u;
+
+    @Before
+    public void setUp(){
+        u = new User();
         u.setId(10l);
         u.setName("liying");
+    }
+    @After
+    public void tearDown(){
+    }
+
+    @Test
+    public void generateTokenTest(){
         String token = jwtService.generateToken(u);
         System.out.println("Token : " + token);
         assertNotNull(token);
     }
+
     @Test
     public void generateTokenTest2(){
         User u = userService.getUserByName("dwang");
@@ -38,22 +50,21 @@ public class JWTServiceTest {
         System.out.println("Token : " + token);
         assertNotNull(token);
     }
+
     @Test
     public void validateTokenFormat(){
-        User u = new User();
-        u.setId(100l);
-        u.setName("liyinggggg");
+
         String token = jwtService.generateToken(u);
+        Claims claims = jwtService.decryptJwtToken(token);
+        Assert.assertEquals(claims.getSubject(),"liying");
 
         String[] array = token.split("\\.");
         assertNotNull(token);
         Assert.assertEquals(array.length, 3);
     }
+
     @Test
     public void decryptJwtToken(){
-        User u = new User();
-        u.setId(10l); // Long type
-        u.setName("liying");
         String token = jwtService.generateToken(u);
         Claims claims = jwtService.decryptJwtToken(token);
         assertNotNull(token);

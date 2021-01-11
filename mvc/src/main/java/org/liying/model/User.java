@@ -25,12 +25,14 @@ public class User {
     private String LastName;
     @Column(name = "email")
     private String email;
+
+    // UserSide -- owning side
     //@JsonIgnore
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "users_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roles123 = new HashSet<>(); //   ManyToMany: set better then list
+    private Set<Role> roles123 = new HashSet<>(); //   ManyToMany: set better than list
 
     // add (two direction)
     public void addRole(Role role){

@@ -17,10 +17,11 @@ public class Order {
 //    @Column(name = "consumer_id")
 //    private Long consumerId ;
 
+    // order side（many）
     // order has fk, is owning side
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "consumer_id")
+    @JoinColumn(name = "consumer_id") // fk
     private Consumer consumer;
 
     public Consumer getConsumer() {

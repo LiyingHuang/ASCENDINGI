@@ -62,7 +62,7 @@ public class RoleDaoImpl implements RoleDao{
         try{
             transaction = session.beginTransaction();
             //session.persist(user);
-            session.save(r);
+            session.saveOrUpdate(r);
             transaction.commit();
             session.close();
             return r;

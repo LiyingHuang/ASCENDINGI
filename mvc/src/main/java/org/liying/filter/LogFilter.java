@@ -16,6 +16,7 @@ import java.util.List;
 
 
 // 配置拦截路径/* 访问所有资源之前都会被拦截
+// 自动Filter logFilter = new LogFilter();
 @WebFilter(filterName = "logFilter", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
 public class LogFilter implements Filter {
 
@@ -24,29 +25,25 @@ public class LogFilter implements Filter {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        Instant startTime = Instant.now();
+        Instant startTime = Instant.now(); // long startTime = System.currentTimeMillis()
         HttpServletRequest req = (HttpServletRequest) request;
         String logInfo = logInfo(req);
-        logger.info("PRE_PROCESSING...im in log filter, then doFilter.");
+        logger.info("PRE_PROCESSING...before log filter, then doFilter.");
         // pre-processing before this line
         // 放行
         filterChain.doFilter(request, response);
-        // RUN the 2nd filter, 3rd filter....
+        // RUN the 2nd filter, 3rd filter....a
         // run controller
         // post-processing after this line
-        logger.info("POST-PROCESSING...After Controller, im in log filter again.");
+        logger.info("POST-PROCESSING...After Controller, after log log filter");
         logger.info(logInfo.replace("responseTime", String.valueOf(Instant.now().getEpochSecond()-startTime.getEpochSecond())));
     }
     @Override
-    public void destroy(){
-
-    }
+    public void destroy(){}
 
     private String logInfo(HttpServletRequest req) {
         String formData = null;

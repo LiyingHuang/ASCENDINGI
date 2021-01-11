@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 // Store in Storage: ShoppingPlatformService shoppingPlatformService = new ShoppingPlatformService();
 public class ShoppingPlatformService {
-    @Autowired
-    // storage: ShoppingPlatformDao sPD = new ShoppingPlatformDaoImpl();
+    @Autowired // storage: ShoppingPlatformDao sPD = new ShoppingPlatformDaoImpl();
     private ShoppingPlatformDao shoppingPlatformDao;
+
     public ShoppingPlatform save(ShoppingPlatform platform){return shoppingPlatformDao.save(platform);}
     public List<ShoppingPlatform> getShoppingPlatforms(){
         return shoppingPlatformDao.getShoppingPlatforms();

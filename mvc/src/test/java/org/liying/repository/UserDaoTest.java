@@ -51,8 +51,7 @@ public class UserDaoTest {
         role1.setAllowedUpdate(true);
         role1 = roleDao.save(role1);
         user1.addRole(role1);
-        //role1.setUsers(user1);
-        //user1 = userService.setRole(user1.getName(), role1.getName());
+
         role2 = new Role();
         role2.setName("role2_employee");
         role2.setAllowedCreate(false);
@@ -64,18 +63,11 @@ public class UserDaoTest {
         user1.addRole(role2);
 
         user1 = userDao.save(user1);
-        // role2.setUsers(user1);
-       // user1 = userService.setRole(user1.getName(), role2.getName());
-
     }
     @After
     public void tearDown(){
-        //userService.removeRole(user1.getName(), role1.getName());
-        //userService.removeRole(user1.getName(), role2.getName());
-
         roleDao.delete(role1);
         roleDao.delete(role2);
-        //userService.delete(user1);
         userDao.delete(user1);
 
     }

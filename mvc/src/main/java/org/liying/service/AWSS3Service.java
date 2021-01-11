@@ -15,8 +15,8 @@ public class AWSS3Service {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private AmazonS3 amazonS3;
 
-    private String myAWSAccessKeyId="AKIAWJ5GI5ZXCAN2JHI5";
-    private String myAWSSecretKey="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";
+    private String myAWSAccessKeyId=System.getProperty("aws.accessKeyId");
+    private String myAWSSecretKey=System.getProperty("aws.secretKey");
 
     /*
     public AWSS3Service(){ this.amazonS3= getS3ClientUsingDefaultChain(); } // VM Option
